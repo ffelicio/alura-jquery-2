@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>01 - Animações com Jquery - Exercício 10 - Menu ioiô</title>
+        <style>
+            .section-menu-atividade {
+                margin: 0 auto;
+            }
+
+            .section-menu-atividade {
+                width: 80%;
+            }
+
+            .clear {
+                clear: both;
+            }
+
+            #esquerda {
+                float: left;
+            }
+
+            #direita {
+                float: right;
+            }
+
+            .div-menus-atividade {
+                border: 1px solid black;
+                padding: 5px;
+                width: 48%;
+            }
+
+            .div-menus-atividade h1, .div-menus-atividade ul {
+                text-align: center;
+            }
+
+            .div-menus-atividade ul {
+                list-style: none;
+            }
+        </style>
+    </head>
+    <body>
+        <section id="section-menu-atividade">
+            <div>
+                <div id="esquerda" class="div-menus-atividade">
+
+                    <div>
+                        <h3>Efeito ioiô - sem a função <strong>.stop()</strong></h3>
+                        <p>Passar e sair com o mouse no título <strong>Menu</strong> para verificar a ação.</p>
+                        <p>Sem a utilização da função <strong>.stop()</strong>, o menu ficará subindo e descendo</strong></p>
+                    </div>
+
+                    <hr>
+
+                    <pre>
+                        $("#dropdown").mouseenter(function() {
+                            $("#opcoes").slideDown();
+                        });
+                        
+                        $("#dropdown").mouseleave(function() {
+                            $("#opcoes").slideUp();
+                        });
+                    </pre>
+
+                    <hr>
+
+                    <h1 id="dropdown-esquerda">Menu</h1>
+                    <ul style="display: none;" id="opcoes-esquerda">
+                        <li>Massas</li>
+                        <li>Carnes</li>
+                        <li>Saladas e Vegetais</li>
+                    </ul>
+                </div>
+
+                <div id="direita" class="div-menus-atividade">
+
+                    <div>
+                        <h3>Efeito correto - função .stop()</h3>
+                        <p>Passar e sair com o mouse no título <strong>Menu</strong> para verificar a ação.</p>
+                        <p>A mesma serve para interromper uma animação antes de começar a próxima</p>
+                    </div>
+    
+                    <hr>
+
+                    <pre>
+                        $("#dropdown").mouseenter(function() {
+                            $("#opcoes").stop().slideToggle();
+                        });
+                        
+                        $("#dropdown").mouseleave(function() {
+                            $("#opcoes").stop().slideToggle();
+                        });
+                    </pre>
+
+                    <hr>
+
+                    <h1 id="dropdown-direita">Menu</h1>
+                    <ul style="display: none;" id="opcoes-direita">
+                        <li>Massas</li>
+                        <li>Carnes</li>
+                        <li>Saladas e Vegetais</li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <script src="../../js/jquery/jquery.js"></script>
+        <script>
+            $("#dropdown-esquerda").mouseenter(function() {
+                $("#opcoes-esquerda").slideToggle();
+            });
+            
+            $("#dropdown-esquerda").mouseleave(function() {
+                $("#opcoes-esquerda").slideToggle();
+            });
+
+            $("#dropdown-direita").mouseenter(function() {
+                $("#opcoes-direita").stop().slideToggle();
+            });
+            
+            $("#dropdown-direita").mouseleave(function() {
+                $("#opcoes-direita").stop().slideToggle();
+            });
+        </script>
+    </body>
+</html>
