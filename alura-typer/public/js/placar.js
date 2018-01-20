@@ -24,7 +24,7 @@ let placar = {
 
         placar.scrollar();
 
-        // placar.remover();
+        placar.remover();
     },
     montarLinha : (usuario) => {
         /**

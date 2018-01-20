@@ -16,6 +16,11 @@ var jogo = {
         var tamanhoFrase = $("#tamanho-frase");
         tamanhoFrase.text(numPalavras);
     },
+    atualizarTempoInicial : (tempo) => {
+        // Atualiza a variável global quando o jogo for reiniciado.
+        tempoInicial = tempo;
+        $("#tempo-digitacao").text(tempo);
+    },
     inputJogador : () => {
         /**
          * O evento 'input' mapeia tudo que o usuário está digitando.
@@ -76,8 +81,6 @@ var jogo = {
         campo.toggleClass("borda-vermelha", !ehCorreto);
     },
     inicializarCronometro : () => {
-        var tempoRestante = $("#tempo-digitacao").text();
-
         /**
          * Na função abaixo não foi utilizado o evento 'click', porque o mesmo não mapeia o campo caso o usuário acesse o input através
          * do 'TAB'(tabulação). No caso, optou-se pelo evento 'focus', porque ele é usado para detectar quando o usuário entra em um campo,
@@ -89,6 +92,7 @@ var jogo = {
          * seria executada a todo momento, podendo acarretar outros bugs.
          */
         campo.one("focus", function() {
+            var tempoRestante = $("#tempo-digitacao").text();
             botaoReiniciar.attr("disabled", true);
 
             /**

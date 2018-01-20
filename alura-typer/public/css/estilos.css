@@ -32,3 +32,13 @@ body {
 .placar {
     display: none;
 }
+
+#erro{
+    color: red;
+    display: none;
+    font-weight: bold;
+}
+
+#spinner {
+    display: none;
+}

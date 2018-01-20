@@ -1,0 +1,38 @@
+var frase = {
+    aleatoria : () => {
+        $("#spinner").toggle();
+
+        // Faz uma requisição para resgatar as frases.
+        $.get('http://localhost:3000/frases', (frases) => {
+            var frase = $('.frase');
+
+            /**
+             * Math.random(): gera um número aleatório entre 0 e 1, mas com casas decimais.
+             * Math.floor(argumento): arredonda o número para baixo.
+             */
+            var numeroAleatorio = Math.floor(Math.random() * frases.length);
+
+            frase.text(frases[numeroAleatorio].texto);
+            jogo.atualizarTamanhoFrase();
+            jogo.atualizarTempoInicial(frases[numeroAleatorio].tempo);
+        }).fail(() => {
+            /**
+             * A .fail() recebe uma função anônima com o código que é executado quando um erro acontece.
+             */
+
+            $("#erro").toggle();
+
+            setTimeout(function(){
+                $("#erro").toggle();
+            }, 2000);
+        }).always(() => {
+            /**
+             * A função .always é sempre executada independente de sucesso ou falha na requisição executada por Ajax.
+             */
+
+            $("#spinner").toggle();
+        });
+    },
+};
+
+$("#botao-frase").click(frase.aleatoria);
