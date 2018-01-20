@@ -7,6 +7,7 @@ $(function() {
     jogo.inputJogador();
     jogo.inicializarCronometro();
     botaoReiniciar.click(jogo.reiniciar);
+    placar.listar();
 });
 
 var jogo = {

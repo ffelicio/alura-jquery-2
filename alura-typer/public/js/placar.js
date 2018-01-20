@@ -5,7 +5,9 @@ let placar = {
          */
         var corpoTabela = $(".placar").find("tbody");
         var usuario = "Fernando";
-        var linha = placar.montarLinha(usuario);
+        var palavras = $("#contador-palavras").text();
+        var caracteres = $("#contador-caracteres").text();
+        var linha = placar.montarLinha(usuario, caracteres, palavras);
 
         /**
          * A função .append adiciona a string ou elemento HTML que é passada como parâmetro,
@@ -26,16 +28,26 @@ let placar = {
 
         placar.remover();
     },
-    montarLinha : (usuario) => {
+    listar : () => {
+        $.get("http://localhost:3000/placar", (placares) => {
+            if(placares.length > 0) {
+                $(placares).each(function() {
+                    var linhas = placar.montarLinha(this.usuario, this.caracteres, this.pontos);
+                    $('tbody').append(linhas);
+                    placar.remover();
+                });
+            }
+        });
+    },
+    montarLinha : (usuario, caracteres, palavras) => {
         /**
          * Realizará a criação dos elementos das linhas da tabela diretamente com jQuery, para poder criar efetivamente
          * o html, ou seja, guardando na memória para poder utilizar posteriormente.
          */
         var linha = $("<tr>");
         var colunaUsuario = $("<td>").text(usuario);
-        var colunaCaracteres = $("<td>").text($("#contador-caracteres").text());
-        var colunaPalavras = $("<td>").text($("#contador-palavras").text());
-        var colunaData = $("<td>").text(placar.data());
+        var colunaCaracteres = $("<td>").text(caracteres);
+        var colunaPalavras = $("<td>").text(palavras);
         var colunaRemover = $("<td>");
 
         var link = $("<a>").attr("href", "#").addClass("botao-remover");
@@ -50,7 +62,6 @@ let placar = {
         linha.append(colunaUsuario);
         linha.append(colunaCaracteres);
         linha.append(colunaPalavras);
-        linha.append(colunaData);
         linha.append(colunaRemover);
 
         return linha;
@@ -94,15 +105,6 @@ let placar = {
             }, 1000);
         });
     },
-    data : () => {
-        var date = new Date();
-        var dia = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
-        var mes = date.getMonth() + 1;
-            mes = (mes < 10 ? '0' + mes : mes);
-        var ano = date.getFullYear();
-
-        return (dia + '/' + mes + '/' + ano);
-    },
     mostrar : () => {
         /**
          * A função .slideToggle é um atalho para as funções .slideUp e .slideDown.
@@ -138,7 +140,30 @@ let placar = {
         $('html').animate({
             scrollTop: posicaoPlacar + "px"
         }, 1000);
+    },
+    salvar : () => {
+        var placar = [];
+
+        // Pega todos os tr's filhos de tbody
+        var linhas = $("tbody>tr");
+
+        linhas.each(function(){
+            var usuario = $(this).find("td:nth-child(1)").text();
+            var caracteres = $(this).find("td:nth-child(2)").text();
+            var palavras = $(this).find("td:nth-child(3)").text();
+
+            var score = { usuario : usuario, pontos : palavras, caracteres : caracteres };
+
+            placar.push(score);
+        });
+
+        var dados = { "placar" : placar };
+
+        $.post("http://localhost:3000/placar", dados, function(){
+            console.log("Placar sincronizado com sucesso");
+        });
     }
 }
 
 $('#botao-placar').click(placar.mostrar);
+$("#botao-sync").click(placar.salvar);
