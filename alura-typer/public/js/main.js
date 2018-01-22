@@ -8,6 +8,15 @@ $(function() {
     jogo.inicializarCronometro();
     botaoReiniciar.click(jogo.reiniciar);
     placar.listar();
+
+    $("#usuarios").selectize({
+        create: true,
+        sortField: 'text'
+    });
+
+    $(".tooltip").tooltipster({
+        trigger: "custom"
+    });
 });
 
 var jogo = {

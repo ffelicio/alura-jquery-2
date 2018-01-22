@@ -4,7 +4,7 @@ let placar = {
          * A função .find() recebe como parâmetro seletores CSS, e busca em seus filhos algum elemento que atenda aquela busca.
          */
         var corpoTabela = $(".placar").find("tbody");
-        var usuario = "Fernando";
+        var usuario = $("#usuarios").val();
         var palavras = $("#contador-palavras").text();
         var caracteres = $("#contador-caracteres").text();
         var linha = placar.montarLinha(usuario, caracteres, palavras);
@@ -161,6 +161,13 @@ let placar = {
 
         $.post("http://localhost:3000/placar", dados, function(){
             console.log("Placar sincronizado com sucesso");
+            $(".tooltip").tooltipster("open").tooltipster("content", "Placar sincronizado com sucesso"); //novo
+        }).fail(() => {
+            $(".tooltip").tooltipster("open").tooltipster("content", "Falha ao sincronizar"); 
+        }).always(() => { //novo
+            setTimeout(() => {
+                $(".tooltip").tooltipster("close"); 
+            }, 1800);
         });
     }
 }

@@ -5,6 +5,8 @@
     <title>Alura Typer</title>
     <link rel="stylesheet" href="css/libs/materialize.min.css">
     <link rel="stylesheet" href="css/libs/google-fonts.css">
+    <link rel="stylesheet" href="css/libs/selectize/selectize.default.css">
+    <link rel="stylesheet" href="css/libs/tooltipster/tooltipster.bundle.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
@@ -44,7 +46,16 @@
                 <i class="material-icons">repeat_one</i>
             </a>
             <input type="number" min="0" id="frase-id">
-            <a id="botao-sync" class="btn-floating btn-large waves-effect waves-light yellow">
+
+            <div class="select-usuarios">
+                <select id="usuarios">
+                   <option value="Douglas">Douglas</option>
+                   <option value="Flavio">Flavio</option>
+                   <option value="Nico">Nico</option>
+                </select>
+            </div>
+
+            <a id="botao-sync" class="tooltip btn-floating btn-large waves-effect waves-light yellow" title="Sincronizado com sucesso">
                 <i class="material-icons">swap_vert</i>
             </a>
         </div>
@@ -71,6 +82,8 @@
     </div>
 
     <script src="js/jquery/jquery.js"></script>
+    <script src="js/selectize/selectize.js"></script>
+    <script src="js/tooltipster/tooltipster.bundle.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/placar.js"></script>
     <script src="js/frase.js"></script>
